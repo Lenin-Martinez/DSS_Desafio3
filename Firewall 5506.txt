@@ -1,0 +1,77 @@
+
+#============ Firewall 5506 ==================
+
+
+#============ Firewall FW1==================
+
+enable
+configure terminal
+
+interface GigabitEthernet 1/1
+nameif DMZ
+security-level 50
+ip address 192.168.1.1 255.255.255.0
+no shutdown
+exit
+
+interface GigabitEthernet 1/2
+nameif INTERNAB
+security-level 100
+ip address 192.168.2.1 255.255.255.0
+no shutdown
+exit
+
+
+
+class-map inspection_default
+match default-inspection-traffic
+exit
+policy-map global_policy
+class inspection_default
+inspect icmp
+exit
+service-policy global_policy global
+
+
+#============ Reiniciar de Interfaces ==================
+interface GigabitEthernet 1/1
+no shutdown
+exit
+
+interface GigabitEthernet 1/2
+no shutdown
+exit
+
+
+interface GigabitEthernet 1/1
+no nameif
+no security-level
+shutdown
+exit
+
+interface GigabitEthernet 1/2
+no nameif
+no security-level
+shutdown
+exit
+
+
+#============ Reiniciar de Fabrica ==================
+enable
+configure terminal
+write erase
+reload
+[n]
+
+enable
+configure terminal
+configure factory-default
+write memory
+reload
+[y]
+
+#============ Otras cosas ==================
+
+policy-map global_policy
+class inspection_default
+inspect icmp
