@@ -1,10 +1,10 @@
 
 #============ Firewall 5506 ==================
 
-https://www.youtube.com/watch?v=2gFnSlQb0Wo
-
 #============ Firewall FW1==================
 
+
+##============ Establece direcciones ip =================
 enable
 configure terminal
 
@@ -23,9 +23,7 @@ no shutdown
 exit
 
 
-#===== Direccionamiento NAT
-
-
+##============ Direccionamiento NAT =================
 enable
 configure terminal
 
@@ -35,19 +33,26 @@ nat (INTERNAB,DMZ) dynamic interface
 exit
 
 
+configure terminal
 
-
-
-
-
-class-map inspection_default
-match default-inspection-traffic
+object network DMZ_INTERNAB
+subnet 192.168.2.0 255.255.255.0
+nat (DMZ,INTERNAB) dynamic interface
 exit
+
+
+##============ Politica de comunicacion ============
 policy-map global_policy
 class inspection_default
 inspect icmp
 exit
 service-policy global_policy global
+
+
+
+
+
+
 
 
 #============ Reiniciar de Interfaces ==================
@@ -80,7 +85,3 @@ reload
 [y]
 
 #============ Otras cosas ==================
-
-policy-map global_policy
-class inspection_default
-inspect icmp
