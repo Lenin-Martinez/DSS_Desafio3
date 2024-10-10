@@ -8,7 +8,7 @@ configure terminal
 interface GigabitEthernet 1/1
 nameif EXTERNA
 security-level 0
-ip address 192.168.1.1 255.255.255.0
+ip address 192.168.1.1 255.255.255.252
 no shutdown
 exit
 
