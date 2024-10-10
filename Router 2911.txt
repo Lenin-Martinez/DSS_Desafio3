@@ -2,5 +2,5 @@
 #========== Hacia zona b ==================
 
 interface GigabitEthernet 0/2
-ip address 192.168.2.1 255.255.255.252
+ip address 192.168.1.2 255.255.255.252
 no shutdown

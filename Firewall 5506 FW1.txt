@@ -41,13 +41,32 @@ service-policy global_policy global
 ##============ Direccionamiento NAT =================
 
 configure terminal
-object network OBJ_INTERNA_DMZ
+object network OBJ_INTERNA_EXTERNA
 subnet 192.168.3.0 255.255.255.0
-nat (INTERNA,DMZ) dynamic interface
+nat (INTERNA,EXTERNA) dynamic interface
 exit
 
-access-list ACL_RESPUESTA_DMZ extended permit ip any any
-access-group ACL_RESPUESTA_DMZ in interface DMZ
+configure terminal
+object network OBJ_DMZ_EXTERNA
+subnet 192.168.2.0 255.255.255.0
+nat (DMZ,EXTERNA) dynamic interface
+exit
+
+##============ ACL =================
+
+
+access-list ACL_RESPUESTA extended permit ip any any
+access-group ACL_RESPUESTA in interface DMZ
+access-group ACL_RESPUESTA in interface EXTERNA
+
+
+no access-group ACL_RESPUESTA in interface EXTERNA
+no access-group ACL_RESPUESTA in interface DMZ
+no access-list ACL_RESPUESTA extended permit ip any any
+
+
+
+
 
 
 
