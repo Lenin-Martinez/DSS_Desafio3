@@ -1,6 +1,13 @@
 
 #========== Hacia zona b ==================
 
-interface GigabitEthernet 0/2
-ip address 192.168.1.2 255.255.255.252
+configure terminal
+interface GigabitEthernet 0/1
+ip address 192.168.10.1 255.255.255.252
 no shutdown
+exit
+
+interface GigabitEthernet 0/2
+ip address 192.168.1.1 255.255.255.252
+no shutdown
+exit
