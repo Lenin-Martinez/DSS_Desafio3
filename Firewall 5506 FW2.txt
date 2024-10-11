@@ -43,7 +43,7 @@ exit
 #============ Guardar configuracion ==================
 write memory
 
-
+route EXTERNA 0.0.0.0 0.0.0.0 192.168.10.1
 
 
 
