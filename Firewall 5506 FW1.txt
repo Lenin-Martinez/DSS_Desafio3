@@ -52,21 +52,9 @@ subnet 192.168.2.0 255.255.255.0
 nat (DMZ,EXTERNA) dynamic interface
 exit
 
-##============ ACL =================
 
-
-access-list ACL_RESPUESTA extended permit ip any any
-access-group ACL_RESPUESTA in interface DMZ
-access-group ACL_RESPUESTA in interface EXTERNA
-
-
-no access-group ACL_RESPUESTA in interface EXTERNA
-no access-group ACL_RESPUESTA in interface DMZ
-no access-list ACL_RESPUESTA extended permit ip any any
-
-
-
-
+#============ Guardar configuracion ==================
+write memory
 
 
 

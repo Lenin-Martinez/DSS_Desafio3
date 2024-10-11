@@ -40,23 +40,8 @@ nat (INTERNA,EXTERNA) dynamic interface
 exit
 
 
-##============ Enrutamiento =================
-
-configure terminal
-route EXTERNA 0.0.0.0 0.0.0.0 192.168.10.1
-
-##============ ACL =================
-
-
-access-list ACL_RESPUESTA extended permit ip any any
-access-group ACL_RESPUESTA in interface DMZ
-access-group ACL_RESPUESTA in interface EXTERNA
-
-
-no access-group ACL_RESPUESTA in interface EXTERNA
-no access-group ACL_RESPUESTA in interface DMZ
-no access-list ACL_RESPUESTA extended permit ip any any
-
+#============ Guardar configuracion ==================
+write memory
 
 
 
