@@ -39,6 +39,12 @@ subnet 192.168.20.0 255.255.255.0
 nat (INTERNA,EXTERNA) dynamic interface
 exit
 
+configure terminal
+##object network OBJ_EXTERNA_INTERNA
+subnet 192.168.10.0 255.255.255.252
+nat (EXTERNA,INTERNA) dynamic interface
+exit
+
 
 #============ Guardar configuracion ==================
 write memory
@@ -47,8 +53,29 @@ route EXTERNA 0.0.0.0 0.0.0.0 192.168.10.1
 
 
 
+# ============ ACL 
+
+access-list ACL_INTERNA extended permit icmp host 192.168.20.10 any
+access-list ACL_INTERNA extended permit icmp any host 192.168.20.10
+access-group ACL_INTERNA in interface INTERNA
 
 
+access-list ACL_EXTERNA extended permit icmp any host 192.168.20.10
+access-list ACL_EXTERNA extended permit icmp any host 192.168.20.10
+access-list ACL_EXTERNA extended deny ip any any
+access-group ACL_EXTERNA in interface EXTERNA
+
+======================
+no 
+
+no access-list ACL_INTERNA extended permit icmp host 192.168.20.10 any
+no access-list ACL_INTERNA extended permit icmp any host 192.168.20.10
+no access-group ACL_INTERNA in interface INTERNA
+
+no access-list ACL_EXTERNA extended permit icmp any host 192.168.20.10
+no access-list ACL_EXTERNA extended permit icmp any host 192.168.20.10
+no access-list ACL_EXTERNA extended deny ip any any
+no access-group ACL_EXTERNA in interface EXTERNA
 
 #============ Reiniciar de Interfaces ==================
 
